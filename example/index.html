@@ -16,7 +16,7 @@
 
   <script>
     function square(x){
-      return Math.pow(x, -1);
+      return Math.pow(x, 0.5);
     }
 
     var dimensions = {
@@ -29,7 +29,7 @@
     };
     dimensions.width = 500 - dimensions.margins.left - dimensions.margins.right;
     dimensions.height = 300 - dimensions.margins.top - dimensions.margins.bottom;
-    var xSpan = [-20, 20]
+    var xSpan = [-1, 1]
     d3.select("#graph")
       .call(Plotter.xy(square, xSpan, dimensions));
   </script>
