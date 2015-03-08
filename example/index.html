@@ -35,11 +35,12 @@
     dimensions.height = 300 - dimensions.margins.top - dimensions.margins.bottom;
 
     var chart = Plotter.xy()
-        .type('parametric')
+        // .type('parametric')
         .dimensions(dimensions)
         // .xSpan([-5, 5])
         // .ySpan([-2, 2])
-        .fun(circle);
+        .fun(square)
+        .axisNumbers(false);
 
     d3.select("#graph")
       .call(chart);
