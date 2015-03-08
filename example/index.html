@@ -23,7 +23,15 @@
     }
 
     function circle(t) { // t is  betweem 0 and 2pi
-      return [Math.cos(t), Math.sin(t)];
+      return 10;
+    }
+
+    function rose(t) {
+      return Math.sin(6 * t) + 2;
+    }
+
+    function spiral(t) {
+      return t / (1 * Math.PI);
     }
 
     var dimensions = {
@@ -38,11 +46,11 @@
     dimensions.height = 300 - dimensions.margins.top - dimensions.margins.bottom;
 
     var chart = Plotter.xy()
-        // .type('parametric')
+        .type('parametric')
         .dimensions(dimensions)
         // .xSpan([-5, 5])
         // .ySpan([-2, 2])
-        .fun(inverse)
+        .fun(circle)
         .axisNumbers(false);
 
     d3.select("#graph")
