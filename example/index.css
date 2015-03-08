@@ -8,12 +8,18 @@ path {
   shape-rendering: crispEdges;
 }
 
-.axis text {
-  display: none;
+.showLabels.axis text {
+  display: block;
 }
 
-.axis text.showLabels {
-  display: block;
+.axis path {
+  stroke: steelblue;
+  stroke-width: 1;
+  fill: none;
+}
+
+.axis text {
+  display: none;
 }
 
 

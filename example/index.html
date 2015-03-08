@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <p>hlk</p>
   <div id="graph"></div>
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="../lib/plotter.js" charset="utf-8"></script>
@@ -16,6 +15,10 @@
 
   <script>
     function square(x){
+      return Math.pow(x, 2);
+    }
+
+    function inverse(x) {
       return Math.pow(x, -1);
     }
 
@@ -39,7 +42,7 @@
         .dimensions(dimensions)
         // .xSpan([-5, 5])
         // .ySpan([-2, 2])
-        .fun(square)
+        .fun(inverse)
         .axisNumbers(false);
 
     d3.select("#graph")
