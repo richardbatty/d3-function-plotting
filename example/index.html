@@ -22,7 +22,7 @@
       return Math.pow(x, -1);
     }
 
-    function circle(t) { // t is  betweem 0 and 2pi
+    function circle(t) {
       return 10;
     }
 
@@ -43,18 +43,25 @@
       }
     };
     dimensions.width = 500 - dimensions.margins.left - dimensions.margins.right;
-    dimensions.height = 300 - dimensions.margins.top - dimensions.margins.bottom;
+    dimensions.height = 500 - dimensions.margins.top - dimensions.margins.bottom;
 
     var chart = Plotter.xy()
         .type('parametric')
         .dimensions(dimensions)
-        .polarSpan([0, 2 * Math.PI])
-        // .ySpan([-2, 2])
-        .fun(circle)
+        .polarSpan([-16 * Math.PI, 16 * Math.PI])
+        .ySpan([-20, 20])
+        .fun(spiral)
         .axisNumbers(false);
 
+    var chart2 = Plotter.xy()
+        .type('cartesian')
+        .dimensions(dimensions)
+        .fun(inverse)
+        .axisNumbers(false);
+        
     d3.select("#graph")
-      .call(chart);
+      .call(chart)
+      .call(chart2);
   </script>
 </body>
 </html>
