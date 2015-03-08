@@ -48,7 +48,7 @@
     var chart = Plotter.xy()
         .type('parametric')
         .dimensions(dimensions)
-        // .xSpan([-5, 5])
+        .polarSpan([0, 2 * Math.PI])
         // .ySpan([-2, 2])
         .fun(circle)
         .axisNumbers(false);
