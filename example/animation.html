@@ -13,21 +13,28 @@
   <script src="../lib/data.js" charset="utf-8"></script>
   <script src="../lib/attacher.js" charset="utf-8"></script>
   <script src="../lib/animator.js" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
-  
-</script>
+
   <script>
+    function square(x) {
+      return Math.pow(x, 2);
+    }
 
-    function powerFunction(p, q) {
-      function power(x) {
-        return (x / Math.abs(x)) * Math.pow(Math.abs(x), (p / q));
-      }
-
-      return power;
+    function derivativeOfSquare(x) {
+      return 2 * x;
     }
 
     function linear(x) {
       return x;
+    }
+
+    function createTangent(func, derivative, touchPointX) {
+        var touchPointY = func(touchPointX),
+            gradient = derivative(touchPointX),
+            yIntercept = touchPointY - (gradient * touchPointX);
+
+      return function tangent(x) {
+        return (gradient * x) + yIntercept;
+      };
     }
 
     var dimensions = {
@@ -38,24 +45,24 @@
         left: 80
       }
     };
-    dimensions.width = 300 - dimensions.margins.left - dimensions.margins.right;
-    dimensions.height = 300 - dimensions.margins.top - dimensions.margins.bottom;
+    dimensions.width = 600 - dimensions.margins.left - dimensions.margins.right;
+    dimensions.height = 600 - dimensions.margins.top - dimensions.margins.bottom;
 
     var chart = Plotter.xy()
         .type('cartesian')
-        .xSpan([-5, 5])
+        .xSpan([-10, 10])
+        .ySpan([25, -10])
         .dimensions(dimensions)
-        .funcs([powerFunction(2, 1), linear])
+        .funcs([square, createTangent(square, derivativeOfSquare, -5)])
         .axisNumbers(false);
 
     d3.select("#graph")
       .call(chart);
 
 
-     Plotter.animator.increment(1, 7, 1, 1000, function(number) {
-       chart.update(powerFunction(number, 1));
+     Plotter.animator.increment(-5, 5, 1, 100, function(number) {
+       chart.update(createTangent(square, derivativeOfSquare, number));
      });
-
   </script>
 </body>
 </html>

@@ -13,7 +13,8 @@ path {
 }
 
 .axis path {
-  stroke: steelblue;
+  stroke: grey;
+  opacity: 0.5;
   stroke-width: 1;
   fill: none;
 }
@@ -21,5 +22,4 @@ path {
 .axis text {
   display: none;
 }
-
 
