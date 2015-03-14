@@ -4,16 +4,25 @@
   <meta charset="UTF-8">
   <title>Document</title>
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="../vendor/d3.slider/d3.slider.css" />
+  <style type="text/css" media="all">
+    #slider {
+      margin: 40px;
+    }
+  </style>
 </head>
 <body>
+
   <div id="graph"></div>
+  <div id="slider"></div>
+  <button id="animate">Animate!</button>
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script src="../vendor/d3.slider/d3.slider.js" charset="utf-8"></script>
   <script src="../lib/plotter.js" charset="utf-8"></script>
   <script src="../lib/components.js" charset="utf-8"></script>
   <script src="../lib/data.js" charset="utf-8"></script>
   <script src="../lib/attacher.js" charset="utf-8"></script>
   <script src="../lib/animator.js" charset="utf-8"></script>
-
   <script>
     function square(x) {
       return Math.pow(x, 2);
@@ -48,21 +57,36 @@
     dimensions.width = 600 - dimensions.margins.left - dimensions.margins.right;
     dimensions.height = 600 - dimensions.margins.top - dimensions.margins.bottom;
 
+    var initialTangentX = 1;
+
     var chart = Plotter.xy()
         .type('cartesian')
         .xSpan([-10, 10])
         .ySpan([25, -10])
         .dimensions(dimensions)
-        .funcs([square, createTangent(square, derivativeOfSquare, -5)])
+        .funcs([square, createTangent(square, derivativeOfSquare, initialTangentX)])
         .axisNumbers(false);
 
     d3.select("#graph")
       .call(chart);
 
+    var slider = d3.slider()
+      .axis(true)
+      .min(chart.xSpan()[0])
+      .max(chart.xSpan()[1])
+      .value(initialTangentX)
+      .on('slide', function(evt, value) {
+        chart.update(createTangent(square, derivativeOfSquare, value));
+      });
 
-     Plotter.animator.increment(-5, 5, 1, 100, function(number) {
-       chart.update(createTangent(square, derivativeOfSquare, number));
-     });
+    d3.select('#slider').call(slider);
+
+    d3.select('#animate').on('click', function() {
+      Plotter.animator.increment(-10, 10, 1, 100, function(number) {
+        chart.update(createTangent(square, derivativeOfSquare, number));
+        slider.value(number);
+      });
+    });
   </script>
 </body>
 </html>
