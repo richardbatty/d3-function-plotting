@@ -19,9 +19,15 @@
   <script>
 
     function powerFunction(p, q) {
-      return function(x) {
+      function power(x) {
         return (x / Math.abs(x)) * Math.pow(Math.abs(x), (p / q));
       }
+
+      return power;
+    }
+
+    function linear(x) {
+      return x;
     }
 
     var dimensions = {
@@ -39,11 +45,12 @@
         .type('cartesian')
         .xSpan([-5, 5])
         .dimensions(dimensions)
-        .fun(powerFunction(2, 1))
+        .funcs([powerFunction(2, 1), linear])
         .axisNumbers(false);
 
     d3.select("#graph")
-      .call(chart.fun(powerFunction(1, 5)));
+      .call(chart);
+
 
      Plotter.animator.increment(1, 7, 1, 1000, function(number) {
        chart.update(powerFunction(number, 1));
