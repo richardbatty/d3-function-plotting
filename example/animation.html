@@ -54,8 +54,8 @@
         left: 80
       }
     };
-    dimensions.width = 600 - dimensions.margins.left - dimensions.margins.right;
-    dimensions.height = 600 - dimensions.margins.top - dimensions.margins.bottom;
+    dimensions.width = 300 - dimensions.margins.left - dimensions.margins.right;
+    dimensions.height = 300 - dimensions.margins.top - dimensions.margins.bottom;
 
     var initialTangentX = 1;
 
@@ -67,8 +67,15 @@
         .funcs([square, createTangent(square, derivativeOfSquare, initialTangentX)])
         .axisNumbers(false);
 
+    var deriv = Plotter.xy()
+        .dimensions(dimensions)
+        .funcs(derivativeOfSquare)
+        .axisNumbers(false)
+        .append('circle');
+
     d3.select("#graph")
-      .call(chart);
+      .call(chart)
+      .call(deriv);
 
     var slider = d3.slider()
       .axis(true)
